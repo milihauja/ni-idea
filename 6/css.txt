@@ -1,0 +1,79 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+#tablero {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  grid-gap: 4px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.casilla {
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+  border: 2px solid #333;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.casilla .letra {
+  font-weight: bold;
+  font-size: 24px;
+  user-select: none;
+}
+
+.casilla:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+#fichas {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ficha {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  background-color: #ffd966;
+  border: 2px solid #333;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  user-select: none;
+}
+
+#verificar {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#resultado {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}

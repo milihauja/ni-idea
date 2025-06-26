@@ -1,0 +1,196 @@
+const tablero = document.getElementById("tablero");
+const mensaje = document.getElementById("mensaje");
+const minasRestantes = document.getElementById("minas-restantes");
+const tiempoElemento = document.getElementById("tiempo");
+const intentosElemento = document.getElementById("intentos");
+const botonReiniciar = document.getElementById("reiniciar");
+
+const sonidoGanar = document.getElementById("sonido-ganar");
+const sonidoPerder = document.getElementById("sonido-perder");
+
+let ganar = new Audio("sonidos/ganar.wav");
+let lose = new Audio("sonidos/perder.wav");
+let explosion = new Audio("sonidos/explosion.wav");
+let reinicio = new Audio("sonidos/reinicio.wav");
+
+const filas = 8, columnas = 8, totalMinas = 10;
+
+let celdas, minas, banderas, intentos, tiempo, temporizador, juegoTerminado;
+
+function iniciarJuego() {
+  tablero.innerHTML = "";
+  celdas = [];
+  minas = [];
+  banderas = 0;
+  intentos = 0;
+  tiempo = 0;
+  juegoTerminado = false;
+  mensaje.textContent = "";
+  minasRestantes.textContent = totalMinas;
+  intentosElemento.textContent = intentos;
+  tiempoElemento.textContent = tiempo;
+
+  clearInterval(temporizador);
+  temporizador = setInterval(() => {
+    tiempo++;
+    tiempoElemento.textContent = tiempo;
+  }, 1000);
+
+  crearCeldas();
+  colocarMinas();
+  contarMinasCercanas();
+}
+
+function crearCeldas() {
+  for (let i = 0; i < filas; i++) {
+    celdas[i] = [];
+    for (let j = 0; j < columnas; j++) {
+      const div = document.createElement("div");
+      div.classList.add("celda");
+      div.dataset.fila = i;
+      div.dataset.columna = j;
+      div.addEventListener("click", revelarCelda);
+      div.addEventListener("contextmenu", ponerBandera);
+      tablero.appendChild(div);
+
+      celdas[i][j] = { div, mina: false, revelada: false, bandera: false, minasCerca: 0 };
+    }
+  }
+}
+
+function colocarMinas() {
+  let colocadas = 0;
+  while (colocadas < totalMinas) {
+    let i = Math.floor(Math.random() * filas);
+    let j = Math.floor(Math.random() * columnas);
+    if (!celdas[i][j].mina) {
+      celdas[i][j].mina = true;
+      minas.push(celdas[i][j]);
+      colocadas++;
+    }
+  }
+}
+
+function contarMinasCercanas() {
+  for (let i = 0; i < filas; i++) {
+    for (let j = 0; j < columnas; j++) {
+      if (celdas[i][j].mina) continue;
+      for (let x = -1; x <= 1; x++) {
+        for (let y = -1; y <= 1; y++) {
+          let ni = i + x, nj = j + y;
+          if (ni >= 0 && ni < filas && nj >= 0 && nj < columnas) {
+            if (celdas[ni][nj].mina) celdas[i][j].minasCerca++;
+          }
+        }
+      }
+    }
+  }
+}
+
+function revelarCelda(e) {
+  if (juegoTerminado) return;
+  const i = parseInt(e.target.dataset.fila);
+  const j = parseInt(e.target.dataset.columna);
+  const celda = celdas[i][j];
+
+  if (celda.revelada || celda.bandera) return;
+
+  intentos++;
+  intentosElemento.textContent = intentos;
+
+  celda.revelada = true;
+  celda.div.classList.add("revelada");
+
+  if (celda.mina) {
+    celda.div.classList.add("minada");
+    celda.div.textContent = "💣";
+    lose.play();
+    explosion.play();
+
+    perder();
+  } else {
+    if (celda.minasCerca > 0) {
+      celda.div.textContent = celda.minasCerca;
+    } else {
+      revelarVecinos(i, j);
+    }
+    comprobarVictoria();
+  }
+}
+
+function ponerBandera(e) {
+  e.preventDefault();
+  if (juegoTerminado) return;
+  const i = parseInt(e.target.dataset.fila);
+  const j = parseInt(e.target.dataset.columna);
+  const celda = celdas[i][j];
+  if (celda.revelada) return;
+
+  if (celda.bandera) {
+    celda.bandera = false;
+    celda.div.classList.remove("bandera");
+    celda.div.textContent = "";
+    banderas--;
+  } else if (banderas < totalMinas) {
+    celda.bandera = true;
+    celda.div.classList.add("bandera");
+    celda.div.textContent = "🚩";
+    banderas++;
+  }
+
+  minasRestantes.textContent = totalMinas - banderas;
+}
+
+function revelarVecinos(i, j) {
+  for (let x = -1; x <= 1; x++) {
+    for (let y = -1; y <= 1; y++) {
+      let ni = i + x, nj = j + y;
+      if (ni >= 0 && ni < filas && nj >= 0 && nj < columnas) {
+        const vecino = celdas[ni][nj];
+        if (!vecino.revelada && !vecino.mina && !vecino.bandera) {
+          vecino.revelada = true;
+          vecino.div.classList.add("revelada");
+          if (vecino.minasCerca > 0) {
+            vecino.div.textContent = vecino.minasCerca;
+          } else {
+            revelarVecinos(ni, nj);
+          }
+        }
+      }
+    }
+  }
+}
+
+function perder() {
+  juegoTerminado = true;
+  clearInterval(temporizador);
+  mensaje.textContent = "💥 ¡Perdiste!";
+  perder.play();
+  minas.forEach(m => {
+    m.div.textContent = "💣";
+    m.div.classList.add("minada");
+  });
+}
+
+function comprobarVictoria() {
+  let reveladas = 0;
+  for (let fila of celdas) {
+    for (let celda of fila) {
+      if (celda.revelada) reveladas++;
+    }
+  }
+  if (reveladas === filas * columnas - totalMinas) {
+    juegoTerminado = true;
+    clearInterval(temporizador);
+    mensaje.textContent = `🎉 ¡Ganaste en ${tiempo} s con ${intentos} intentos!`;
+    ganar.play();
+  }
+}
+
+botonReiniciar.addEventListener('click', ()=>{
+        reinicio.play();
+      });
+
+botonReiniciar.addEventListener("click", iniciarJuego);
+iniciarJuego();
+

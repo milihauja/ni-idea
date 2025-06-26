@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scrabble Mejorado - Milagros</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Scrabble Mejorado - Milagros</h1>
+
+  <div id="tablero"></div>
+
+  <h2>Tus Fichas</h2>
+  <div id="fichas"></div>
+
+  <button id="verificar">Verificar Palabra</button>
+
+  <p id="resultado"></p>
+
+  <script src="script.js"></script>
+</body>
+</html>

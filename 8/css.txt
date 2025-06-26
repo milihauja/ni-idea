@@ -1,0 +1,61 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f4;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+#panel {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+#tablero {
+  display: grid;
+  grid-template-columns: repeat(8, 40px);
+  grid-gap: 3px;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.celda {
+  width: 40px;
+  height: 40px;
+  background-color: #b0bec5;
+  border: 1px solid #78909c;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 40px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.celda.revelada {
+  background-color: #eceff1;
+  cursor: default;
+}
+
+.celda.bandera {
+  background-color: #ffe082;
+}
+
+.celda.minada {
+  background-color: #ef9a9a;
+}
+
+#mensaje {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscaminas PRO </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Buscaminas mejorado</h1>
+
+  <div id="panel">
+    ⏱ Tiempo: <span id="tiempo">0</span> s |
+    🚩 Minas restantes: <span id="minas-restantes">10</span> |
+    🔢 Intentos: <span id="intentos">0</span>
+  </div>
+
+  <div id="tablero"></div>
+
+  <p id="mensaje"></p>
+  <button id="reiniciar">Reiniciar</button>
+
+  <audio id="sonido-ganar" src="ganar.mp3"></audio>
+  <audio id="sonido-perder" src="perder.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>

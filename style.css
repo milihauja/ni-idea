@@ -37,6 +37,12 @@ main {
   max-width: 1200px;
 }
 
+#juego1 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
 #juego2 a {
   font-size: 1.5rem;
   color: white;

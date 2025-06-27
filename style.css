@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #121212;
+  background: #F346FE;
   color: #eee;
   min-height: 100vh;
   display: flex;
@@ -106,7 +106,7 @@ main {
 }
 
 .juego:hover {
-  background-color: #5718a0;
+  background-color: #F36DD7;
   color: rgb(182, 137, 190);
 }
 

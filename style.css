@@ -37,7 +37,49 @@ main {
   max-width: 1200px;
 }
 
-.juego a {
+#juego2 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+#juego3 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+#juego3 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+#juego4 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+#juego5 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+#juego6 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+#juego7 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+#juego8 a {
   font-size: 1.5rem;
   color: white;
   text-decoration: none;

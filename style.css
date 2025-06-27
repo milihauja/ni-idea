@@ -37,6 +37,12 @@ main {
   max-width: 1200px;
 }
 
+.juego a {
+  font-size = 1.5rem;
+  color = white;
+  text-decoration = none;
+}
+
 .juego {
   background: #222;
   border-radius: 10px;

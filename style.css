@@ -38,9 +38,9 @@ main {
 }
 
 .juego a {
-  font-size = 1.5rem;
-  color = white;
-  text-decoration = none;
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
 }
 
 .juego {
